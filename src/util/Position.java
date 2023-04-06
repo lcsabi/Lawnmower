@@ -2,10 +2,10 @@ package util;
 
 public class Position {
 
-    private int x;
-    private int y;
-    private final int Y_MAX;
+    private int x; // width
+    private int y; // height
     private final int X_MAX;
+    private final int Y_MAX;
 
     public Position() {
         this(5, 5);

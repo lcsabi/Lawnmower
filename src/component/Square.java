@@ -4,14 +4,14 @@ import util.GrassState;
 
 import java.util.Random;
 
-public class Square {
+public class Square { // TODO: Test
 
     private GrassState grassState;
     private int grassLength;
 
     public Square() {
-        grassState = GrassState.UNCUT;
         grassLength = new Random().nextInt(11);
+        grassState = GrassState.UNCUT;
     }
 
     public int getGrassLength() {

@@ -1,6 +1,5 @@
 package util;
-
-public class Stack<T> {
+public class Stack<T> { // TODO: Test
 
     Node<T> top;
     int size;
