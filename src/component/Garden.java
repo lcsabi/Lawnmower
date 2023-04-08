@@ -9,7 +9,7 @@ public class Garden { // TODO: Test
     private final int width; // x
     private final Lawnmower lawnmower;
     private final Square[][] squares;
-    private Stack<Direction> directionStack;
+    private final Stack<Direction> directionStack;
     private boolean isDone = false;
 
     public Garden(int height, int width) {
