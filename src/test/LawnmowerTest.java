@@ -42,7 +42,7 @@ class LawnmowerTest {
         Square square = new Square();
         int grassLength = square.getGrassLength();
         lawnmower.mow(square);
-        assertEquals(100, lawnmower.getBatteryCharge() + grassLength * 3); // mowConsumption is assumed = 3 by default
+        assertEquals(100, lawnmower.getBatteryCharge() + grassLength * 4); // mowConsumption is assumed = 4 by default
     }
 
     @Test
@@ -110,4 +110,6 @@ class LawnmowerTest {
     void testToString() {
         assertEquals("X", lawnmower.toString());
     }
+
+
 }
