@@ -12,10 +12,10 @@ public class Garden { // TODO: Test
     private final Stack<Direction> directionStack;
     private boolean isDone = false;
 
-    public Garden(int height, int width) {
-        this.height = height;
+    public Garden(int width, int height) {
         this.width = width;
-        lawnmower = new Lawnmower(height, width);
+        this.height = height;
+        lawnmower = new Lawnmower(width, height);
 
         squares = new Square[height][width];
         for (int i = 0; i < height; i++) {
@@ -38,5 +38,11 @@ public class Garden { // TODO: Test
 
     public void work() {
 
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        return "";
     }
 }
