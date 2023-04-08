@@ -3,7 +3,7 @@ package component;
 import util.Direction;
 import util.Stack;
 
-public class Garden { // TODO: Test
+public class Garden { // TODO: test, implement
 
     private final int width; // x
     private final int height; // y
