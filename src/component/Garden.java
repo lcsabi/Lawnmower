@@ -5,12 +5,12 @@ import util.Stack;
 
 public class Garden { // TODO: Test
 
-    private final int height; // y
     private final int width; // x
+    private final int height; // y
     private final Lawnmower lawnmower;
     private final Square[][] squares;
     private final Stack<Direction> directionStack;
-    private boolean isDone = false;
+    private int doneSquares = 0;
 
     public Garden(int width, int height) {
         this.width = width;
@@ -33,7 +33,7 @@ public class Garden { // TODO: Test
     }
 
     public boolean isDone() {
-        return isDone;
+        return (width * height) == doneSquares;
     }
 
     public void work() {
