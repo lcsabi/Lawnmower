@@ -14,12 +14,12 @@ public class Stack<T> { // TODO: Test
         size = 1;
     }
 
-    static class Node<T> {
+    public static class Node<T> {
 
         T value;
         Node<T> next;
 
-        Node(T value) {
+        public Node(T value) {
             this.value = value;
             next = null;
         }
