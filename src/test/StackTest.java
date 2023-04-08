@@ -54,7 +54,7 @@ class StackTest {
     }
 
     @Test
-    @DisplayName("Testing toString() on a stack. Should return an opening and closing bracket without a" +
+    @DisplayName("Testing toString() on a stack. Should return an opening and closing bracket with a" +
             "whitespace between them.")
     void testToStringEmpty() {
         assertEquals("[ ]", stack.toString());
