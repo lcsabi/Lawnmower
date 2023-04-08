@@ -46,7 +46,8 @@ public class Lawnmower { // TODO: test new methods
                 "Position: " + getPos()
                 + "\nBattery: " + batteryCharge + "%"
                 + "\nPower: " + (powerState == PowerState.ON ? "ON" : "OFF")
-                + "\nBlades: " + (bladeState == BladeState.ON ? "ON" : "OFF"));
+                + "\nBlades: " + (bladeState == BladeState.ON ? "ON" : "OFF")
+        );
     }
 
     public void mow(Square square) {
