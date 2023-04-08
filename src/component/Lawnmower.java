@@ -80,7 +80,7 @@ public class Lawnmower { // TODO: Test new methods
         return result;
     }
 
-    private void switchPower() {
+    public void switchPower() {
         if (powerState == PowerState.OFF) {
             powerState = PowerState.ON;
             System.out.println("Lawnmower turning on.");
@@ -90,7 +90,7 @@ public class Lawnmower { // TODO: Test new methods
         }
     }
 
-    private void switchBlades() {
+    public void switchBlades() {
         if (bladeState == BladeState.OFF) {
             bladeState = BladeState.ON;
             System.out.println("Blades starting.");
