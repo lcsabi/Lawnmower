@@ -1,0 +1,43 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+/out/
+
+# Eclipse
+#.settings/
+#.project
+#.classpath
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Maven
+#target/
+#pom.xml.tag
+#pom.xml.releaseBackup
+#pom.xml.versionsBackup
+#pom.xml.next
+#release.properties
+#dependency-reduced-pom.xml
+
+# Gradle
+#.gradle/
+#/build/
+#/gradle/
+#/gradlew
+#/gradlew.bat
+#/gradle.properties
+#/gradle.local.properties
+
+# Mac
+#.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
