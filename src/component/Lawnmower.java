@@ -3,7 +3,7 @@ package component;
 import util.Direction;
 import util.Position;
 
-public class Lawnmower { // TODO: Test
+public class Lawnmower {
 
     private final Position pos;
     private double batteryCharge = 100.0;
