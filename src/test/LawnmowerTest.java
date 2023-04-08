@@ -6,7 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import component.Lawnmower;
+import util.BladeState;
 import util.Direction;
+import util.PowerState;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -111,5 +113,53 @@ class LawnmowerTest {
         assertEquals("X", lawnmower.toString());
     }
 
+    @Test
+    @DisplayName("Testing switchPower() when power is OFF.")
+    void switchPowerToOn() {
+        lawnmower.switchPower();
+        assertEquals(PowerState.ON, lawnmower.getPowerState());
+    }
 
+    @Test
+    @DisplayName("Testing switchPower() when power is ON.")
+    void switchPowerToOff() {
+        lawnmower.switchPower();
+        lawnmower.switchPower();
+        assertEquals(PowerState.OFF, lawnmower.getPowerState());
+    }
+
+    @Test
+    @DisplayName("Testing getter methods for powerState and bladeState when they are both OFF.")
+    void testGetStatesWhenOFF() {
+        assertAll(
+                () -> assertEquals(PowerState.OFF, lawnmower.getPowerState()),
+                () -> assertEquals(BladeState.OFF, lawnmower.getBladeState())
+        );
+    }
+
+    @Test
+    @DisplayName("Testing getter methods for powerState and bladeState when they are both ON.")
+    void testGetStatesWhenON() {
+        lawnmower.switchPower();
+        lawnmower.switchBlades();
+        assertAll(
+                () -> assertEquals(PowerState.ON, lawnmower.getPowerState()),
+                () -> assertEquals(BladeState.ON, lawnmower.getBladeState())
+        );
+    }
+
+    @Test
+    @DisplayName("Testing switchBlades() when blades are OFF.")
+    void switchBladesToOn() {
+        lawnmower.switchBlades();
+        assertEquals(BladeState.ON, lawnmower.getBladeState());
+    }
+
+    @Test
+    @DisplayName("Testing switchPower() when power is ON.")
+    void switchBladesToOff() {
+        lawnmower.switchBlades();
+        lawnmower.switchBlades();
+        assertEquals(BladeState.OFF, lawnmower.getBladeState());
+    }
 }
