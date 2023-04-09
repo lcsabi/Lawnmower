@@ -41,6 +41,14 @@ public class Lawnmower {
         return bladeState;
     }
 
+    public double getMowConsumption() {
+        return mowConsumption;
+    }
+
+    public double getMoveConsumption() {
+        return moveConsumption;
+    }
+
     private void printStatus() {
         System.out.println(
                 "Position: " + getPos()
