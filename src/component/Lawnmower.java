@@ -5,7 +5,7 @@ import util.Direction;
 import util.Position;
 import util.PowerState;
 
-public class Lawnmower { // TODO: test new methods
+public class Lawnmower {
 
     private final Position pos;
     private double batteryCharge = 100.0;
