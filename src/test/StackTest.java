@@ -61,11 +61,19 @@ class StackTest {
     }
 
     @Test
-    @DisplayName("Test toString() on a stack. Should return [ 3 2 1 ].")
+    @DisplayName("Testing toString() on a stack. Should return [ 3 2 1 ].")
     void testToString() {
         stack.push(1);
         stack.push(2);
         stack.push(3);
         assertEquals("[ 3 2 1 ]", stack.toString());
+    }
+
+    @Test
+    @DisplayName("Testing peek() on a stack with a size of 2. Should return 10.")
+    void testPeekWith2Elements() {
+        stack.push(1);
+        stack.push(10);
+        assertEquals(10, stack.peek());
     }
 }

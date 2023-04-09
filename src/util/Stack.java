@@ -59,6 +59,15 @@ public class Stack<T> {
         return temp.value;
     }
 
+    public T peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty!");
+            return null;
+        }
+
+        return top.value;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("[ ");
