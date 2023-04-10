@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import component.Lawnmower;
 import util.BladeState;
 import util.Direction;
+import util.Position;
 import util.PowerState;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,24 +19,26 @@ class LawnmowerTest {
 
     @BeforeEach
     void setUp() {
-        lawnmower = new Lawnmower(5,5);
+        lawnmower = new Lawnmower();
     }
 
     @Test
     @DisplayName("Testing initial position. Should return (0,0).")
-    void getPosInitially() {
-        int x = lawnmower.getPos().getX();
-        int y = lawnmower.getPos().getY();
-        assertAll(
-                () -> assertEquals(0, x),
-                () -> assertEquals(0, y)
-        );
+    void getInitialPos() {
+        assertEquals(new Position(0, 0),lawnmower.getCurrentPos());
     }
 
     @Test
-    @DisplayName("Testing getBatteryCharge initially. Should return 100.0.")
+    @DisplayName("Testing initial batteryCharge. Should return 100.")
     void getBatteryChargeInitially() {
         assertEquals(100, (int)lawnmower.getBatteryCharge());
+    }
+
+    @Test
+    @DisplayName("Testing depletion of battery by 25%. Should return 75.")
+    void testDepletion() {
+        lawnmower.depleteBattery(25.0);
+        assertEquals(75, (int)lawnmower.getBatteryCharge());
     }
 
     @Test
@@ -48,67 +51,7 @@ class LawnmowerTest {
                 lawnmower.getBatteryCharge()
                 + grassLength
                 * lawnmower.getMowConsumption()
-        ); //
-    }
-
-    @Test
-    @DisplayName("Testing legally moving up. Should return true.")
-    void testLegalMoveUp() {
-        assertTrue(lawnmower.move(Direction.UP));
-    }
-
-    @Test
-    @DisplayName("Testing illegally moving up. Should return false.")
-    void testIllegalMoveUp() {
-        lawnmower.getPos().setY(4);
-        assertFalse(lawnmower.move(Direction.UP));
-    }
-
-    @Test
-    @DisplayName("Testing legally moving right. Should return true.")
-    void testLegalMoveRight() {
-        assertTrue(lawnmower.move(Direction.RIGHT));
-    }
-
-    @Test
-    @DisplayName("Testing illegally moving right. Should return false.")
-    void testIllegalMoveRight() {
-        lawnmower.getPos().setX(4);
-        assertFalse(lawnmower.move(Direction.RIGHT));
-    }
-
-    @Test
-    @DisplayName("Testing legally moving down. Should return true.")
-    void testLegalMoveDown() {
-        lawnmower.getPos().setY(1);
-        assertTrue(lawnmower.move(Direction.DOWN));
-    }
-
-    @Test
-    @DisplayName("Testing illegally moving right. Should return false.")
-    void testIllegalMoveDown() {
-        assertFalse(lawnmower.move(Direction.DOWN));
-    }
-
-    @Test
-    @DisplayName("Testing legally moving left. Should return true.")
-    void testLegalMoveLeft() {
-        lawnmower.getPos().setX(1);
-        assertTrue(lawnmower.move(Direction.LEFT));
-    }
-
-    @Test
-    @DisplayName("Testing illegally moving left. Should return false.")
-    void testIllegalMoveLeft() {
-        assertFalse(lawnmower.move(Direction.LEFT));
-    }
-
-    @Test
-    @DisplayName("Testing getPos() after moving to the right then moving up. Should return (1,1).")
-    void testGetPosAfterMoving() {
-        lawnmower.move(Direction.RIGHT);
-        lawnmower.move(Direction.UP);
-        assertEquals("(1,1)", lawnmower.getPos().toString());
+        );
     }
 
     @Test
@@ -165,5 +108,12 @@ class LawnmowerTest {
         lawnmower.switchBlades();
         lawnmower.switchBlades();
         assertEquals(BladeState.OFF, lawnmower.getBladeState());
+    }
+
+    @Test
+    @DisplayName("Testing moving to the right.")
+    void moveRight() {
+        lawnmower.move(Direction.RIGHT);
+        assertEquals(new Position(0,1), lawnmower.getCurrentPos());
     }
 }

@@ -7,26 +7,24 @@ import util.PowerState;
 
 public class Lawnmower {
 
-    private final Position pos;
+    private final Position currentPos;
     private double batteryCharge = 100.0;
     private final double mowConsumption;
     private final double moveConsumption;
     private PowerState powerState = PowerState.OFF;
     private BladeState bladeState = BladeState.OFF;
 
-    public Lawnmower(int X_MAX, int Y_MAX) {
-        pos = new Position(X_MAX, Y_MAX);
-        mowConsumption = 4.0;
-        moveConsumption = 2.0;
+    public Lawnmower() {
+        this(4.0, 2.0);
     }
 
-    public Lawnmower(int X_MAX, int Y_MAX, double mowConsumption, double moveConsumption) {
-        pos = new Position(X_MAX, Y_MAX);
+    public Lawnmower(double mowConsumption, double moveConsumption) {
+        currentPos = new Position();
         this.mowConsumption = mowConsumption;
         this.moveConsumption = moveConsumption;
     }
-    public Position getPos() {
-        return pos;
+    public Position getCurrentPos() {
+        return currentPos;
     }
 
     public double getBatteryCharge() {
@@ -51,10 +49,10 @@ public class Lawnmower {
 
     private void printStatus() {
         System.out.println(
-                "Position: " + getPos()
+                "Position: " + getCurrentPos()
                 + "\nBattery: " + batteryCharge + "%"
                 + "\nPower: " + (powerState == PowerState.ON ? "ON" : "OFF")
-                + "\nBlades: " + (bladeState == BladeState.ON ? "ON" : "OFF")
+                + "\nBlades: " + (bladeState == BladeState.ON ? "ON" : "OFF\n")
         );
     }
 
@@ -69,24 +67,15 @@ public class Lawnmower {
         batteryCharge -= square.getGrassLength() * mowConsumption;
 
         square.mowGrass();
-        System.out.println("Mowing grass.");
-        printStatus();
+        System.out.println("Mowing grass at " + getCurrentPos());
     }
 
-    public boolean move(Direction d) {
-        boolean result = pos.move(d);
-        if (result) {
-            if (powerState == PowerState.OFF) {
-                switchPower();
-            }
-            if (bladeState == BladeState.ON) {
-                switchBlades();
-            }
+    public void move(Direction d) {
+        currentPos.move(d);
+    }
 
-            batteryCharge -= moveConsumption;
-        }
-        printStatus();
-        return result;
+    public void depleteBattery(double amount) {
+        batteryCharge -= amount;
     }
 
     public void switchPower() {
