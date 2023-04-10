@@ -2,20 +2,16 @@ package util;
 
 public class Position {
 
-    private int x; // width
     private int y; // height
-    private final int X_MAX;
-    private final int Y_MAX;
+    private int x; // width
 
     public Position() {
-        this(5, 5);
+        this(0, 0);
     }
 
-    public Position(int X_MAX, int Y_MAX) {
-        x = 0;
-        y = 0;
-        this.X_MAX = X_MAX - 1;
-        this.Y_MAX = Y_MAX - 1;
+    public Position(int y, int x) {
+        this.y = y;
+        this.x = x;
     }
 
     public int getX() {
@@ -26,24 +22,17 @@ public class Position {
         return y;
     }
 
-    public boolean setX(int x) {
-        if (x > X_MAX || x < 0) {
-            System.out.println("Cannot place out of bounds");
-            return false;
-        }
-        this.x = x;
-        System.out.println("Successful replacement.");
-        return true;
+    public void set(int y, int x) {
+        setY(y);
+        setX(x);
     }
 
-    public boolean setY(int y) {
-        if (y > Y_MAX || y < 0) {
-            System.out.println("Cannot place out of bounds.");
-            return false;
-        }
+    private void setX(int x) {
+        this.x = x;
+    }
+
+    private void setY(int y) {
         this.y = y;
-        System.out.println("Successful replacement.");
-        return true;
     }
 
     @Override
@@ -51,52 +40,45 @@ public class Position {
         return "(" + x + "," + y + ")";
     }
 
-    public boolean move(Direction d) {
-        boolean success = false;
-        return switch (d) {
+    public void move(Direction d) {
+        switch (d) {
             case UP -> {
-                if (y < Y_MAX) {
-                    y += 1;
-                    success = true;
-                    System.out.println("Moving up.");
-                } else {
-                    System.out.println("Cannot move up from current position.");
-                }
-                yield success;
+                y += 1;
+                System.out.println("Moving up.");
             }
 
             case DOWN -> {
-                if (y > 0) {
-                    y -= 1;
-                    success = true;
-                    System.out.println("Moving down.");
-                } else {
-                    System.out.println("Cannot move down from current position.");
-                }
-                yield success;
+                y -= 1;
+                System.out.println("Moving down.");
             }
 
             case LEFT -> {
-                if (x > 0) {
-                    x -= 1;
-                    success = true;
-                    System.out.println("Moving left.");
-                } else {
-                    System.out.println("Cannot move left from current position.");
-                }
-                yield success;
+                x -= 1;
+                System.out.println("Moving left.");
             }
 
             case RIGHT -> {
-                if (x < X_MAX) {
-                    x += 1;
-                    success = true;
-                    System.out.println("Moving right.");
-                } else {
-                    System.out.println("Cannot move right from current position.");
-                }
-                yield success;
+                x += 1;
+                System.out.println("Moving right.");
             }
         };
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (other == null || getClass() != other.getClass()) return false;
+
+        Position otherPosition = (Position) other;
+
+        if (y != otherPosition.y) return false;
+        return x == otherPosition.x;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = y;
+        result = 31 * result + x;
+        return result;
     }
 }

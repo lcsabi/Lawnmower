@@ -1,6 +1,7 @@
 package test;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,93 +19,50 @@ class PositionTest {
     }
 
     @Test
-    void getXShouldEqual0() {
-        assertEquals(0, p.getX());
+    @DisplayName("Moving right from (0,0) -> (0,1).")
+    void moveRight() {
+        System.out.println("Coordinates before moving: " + p);
+        p.move(Direction.RIGHT);
+        assertEquals(new Position(0,1), p);
     }
 
     @Test
-    void getYShouldEqual0() {
-        assertEquals(0, p.getY());
+    @DisplayName("Moving up from (0,0) -> (1,0).")
+    void moveUp() {
+        System.out.println("Coordinates before moving: " + p);
+        p.move(Direction.UP);
+        assertEquals(new Position(1,0), p);
     }
 
     @Test
-    void setX4ShouldEqualGetX4() {
-        p.setX(4);
-        assertEquals(4, p.getX());
+    @DisplayName("Moving left from (0,1) -> (0,0).")
+    void moveLeft() {
+        p.set(0,1);
+        System.out.println("Coordinates before moving: " + p);
+        p.move(Direction.LEFT);
+        assertEquals(new Position(0,0), p);
     }
 
     @Test
-    void setY3ShouldEqualGetX3() {
-        p.setY(3);
-        assertEquals(3, p.getY());
+    @DisplayName("Moving down from (1,0) -> (0,0).")
+    void moveDown() {
+        p.set(1,0);
+        System.out.println("Coordinates before moving: " + p);
+        p.move(Direction.DOWN);
+        assertEquals(new Position(0,0), p);
     }
 
     @Test
-    void setIllegalMinX() {
-        assertFalse(p.setX(-3));
+    @DisplayName("Testing equals() with (1,1).")
+    void testEquals() {
+        p.set(1,1);
+        assertEquals(new Position(1,1), p);
     }
 
     @Test
-    void setIllegalMaxX() {
-        assertFalse(p.setX(5));
-    }
-
-    @Test
-    void setIllegalMinY() {
-        assertFalse(p.setY(-3));
-    }
-
-    @Test
-    void setIllegalMaxY() {
-        assertFalse(p.setY(6));
-    }
-
-    @Test
-    void testToString() {
-        assertEquals("(0,0)", p.toString());
-    }
-
-    @Test
-    void legalMoveUp() {
-        assertTrue(p.move(Direction.UP));
-    }
-
-    @Test
-    void legalMoveDown() {
-        p.setY(1);
-        assertTrue(p.move(Direction.DOWN));
-    }
-
-    @Test
-    void legalMoveLeft() {
-        p.setX(1);
-        assertTrue(p.move(Direction.LEFT));
-    }
-
-    @Test
-    void legalMoveRight() {
-        assertTrue(p.move(Direction.RIGHT));
-    }
-
-    @Test
-    void illegalMoveUp() {
-        p.setY(4);
-        assertFalse(p.move(Direction.UP));
-    }
-
-    @Test
-    void illegalMoveDown() {
-        assertFalse(p.move(Direction.DOWN));
-    }
-
-    @Test
-    void illegalMoveLeft() {
-        assertFalse(p.move(Direction.LEFT));
-    }
-
-    @Test
-    void illegalMoveRight() {
-        p.setX(4);
-        assertFalse(p.move(Direction.RIGHT));
+    @DisplayName("Testing parameterized ctor.")
+    void otherCtor() {
+        p = new Position(1,1);
+        assertEquals(new Position(1,1), p);
     }
 }
