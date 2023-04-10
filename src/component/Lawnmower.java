@@ -67,7 +67,7 @@ public class Lawnmower {
         batteryCharge -= square.getGrassLength() * mowConsumption;
 
         square.mowGrass();
-        System.out.println("Mowing grass at " + getCurrentPos());
+        System.out.println("Cutting grass at " + getCurrentPos());
     }
 
     public void move(Direction d) {
