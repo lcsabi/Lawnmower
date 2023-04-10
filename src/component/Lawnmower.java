@@ -47,7 +47,7 @@ public class Lawnmower {
         return moveConsumption;
     }
 
-    private void printStatus() {
+    public void printStatus() {
         System.out.println(
                 "Position: " + getCurrentPos()
                 + "\nBattery: " + batteryCharge + "%"
