@@ -23,6 +23,7 @@ public class Lawnmower {
         this.mowConsumption = mowConsumption;
         this.moveConsumption = moveConsumption;
     }
+
     public Position getCurrentPos() {
         return currentPos;
     }
