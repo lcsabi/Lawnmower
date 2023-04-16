@@ -54,16 +54,25 @@ class PositionTest {
     }
 
     @Test
-    @DisplayName("Testing equals() with (1,1).")
-    void testEquals() {
-        p.set(1,1);
-        assertEquals(new Position(1,1), p);
-    }
-
-    @Test
     @DisplayName("Testing parameterized ctor.")
     void otherCtor() {
         p = new Position(1,1);
         assertEquals(new Position(1,1), p);
+    }
+
+    @Test
+    @DisplayName("Testing equals() when equal.")
+    void testEqualsTrue() {
+        Position a = new Position(10, 5);
+        Position b = new Position(10, 5);
+        assertEquals(a, b);
+    }
+
+    @Test
+    @DisplayName("Testing equals() when not equal.")
+    void testEqualsFalse() {
+        Position a = new Position(0, 0);
+        Position b = new Position(1, 1);
+        assertNotEquals(a, b);
     }
 }

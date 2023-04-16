@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Objects;
+
 public class Position {
 
     private int y; // height
@@ -66,19 +68,18 @@ public class Position {
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Position otherPosition)) {
+            return false;
+        }
 
-        Position otherPosition = (Position) other;
-
-        if (y != otherPosition.y) return false;
-        return x == otherPosition.x;
+        return ((y == otherPosition.y) && (x == otherPosition.x));
     }
 
     @Override
     public int hashCode() {
-        int result = y;
-        result = 31 * result + x;
-        return result;
+        return Objects.hash(y, x);
     }
 }
