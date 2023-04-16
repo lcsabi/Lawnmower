@@ -1,48 +1,126 @@
 package component;
 
 import util.Direction;
+import util.GrassState;
+import util.Position;
 import util.Stack;
 
-public class Garden { // TODO: test, implement
+public class Garden { // TODO: test
 
     private final int width; // x
     private final int height; // y
     private final Lawnmower lawnmower;
     private final Square[][] squares;
-    private final Stack<Direction> directionStack;
-    private int doneSquares = 0;
+    private final Stack<Square> visited;
+    private Square currentSquare;
+    private int squaresDone = 0;
 
     public Garden(int width, int height) {
         this.width = width;
         this.height = height;
+
         lawnmower = new Lawnmower(width, height);
 
         squares = new Square[height][width];
         for (int i = 0; i < height; i++) {
             squares[i] = new Square[width];
-            for (int j = 0; j < width; j++) {
+            for (int j = 0; j < squares[i].length; j++) {
                 squares[i][j] = new Square();
             }
         }
 
-        directionStack = new Stack<>();
+        visited = new Stack<>();
+        currentSquare = squares[0][0];
     }
 
-    public Lawnmower getLawnmower() {
-        return lawnmower;
+//    public boolean isFuelEnough() {
+//
+//    }
+
+    private void work() {
+        if (currentSquare.getGrassState() == GrassState.UNCUT) {
+            lawnmower.mow(currentSquare);
+            squaresDone++;
+        }
     }
 
-    public boolean isDone() {
-        return (width * height) == doneSquares;
+    private boolean isDone() {
+        return (width * height) == squaresDone;
     }
 
-    public void work() {
+    private Direction determineNextDirection() {
+        // does the current square have:
+        //    1. an upper neighbor that is unvisited? -> go up
+        //    2. a lower neighbor that is unvisited? -> go down
+        //    3. a right neighbor that is unvisited? -> go right
+        //    4. a left neighbor that is unvisited? -> go left
+        int currentX = lawnmower.getCurrentPos().getX();
+        int currentY = lawnmower.getCurrentPos().getY();
+        Direction nextDir = null;
 
+        // up
+        if ( (currentY < height - 1) && (squares[currentY + 1][currentX].getGrassState().equals(GrassState.UNCUT)) ) {
+            nextDir = Direction.UP;
+        }
+        // down
+        else if ( (currentY > 0) && (squares[currentY - 1][currentX].getGrassState().equals(GrassState.UNCUT)) ) {
+            nextDir = Direction.DOWN;
+        }
+        // right
+        else if ( (currentX < width - 1) && (squares[currentY][currentX + 1].getGrassState().equals(GrassState.UNCUT)) ) {
+            nextDir = Direction.RIGHT;
+        }
+        // left
+        else if ( (currentX > 0) && (squares[currentY][currentX - 1].getGrassState().equals(GrassState.UNCUT)) ) {
+            nextDir = Direction.LEFT;
+        }
+        return nextDir;
+    }
+
+    private void move(Direction d) {
+        lawnmower.move(d);
+        Position newPos = lawnmower.getCurrentPos();
+        currentSquare = squares[newPos.getY()][newPos.getX()];
+        visited.push(currentSquare);
+    }
+
+    public void run() {
+        // 1. print garden status
+        // 2. print lawnmower status
+        // 3. determine if fuel is enough for next cut and returning
+        // 4. work on current square
+        // 5. check if garden is done
+        // 6. determine next direction
+        // 7. move to next direction, set current square
+        while (true) {
+            System.out.println(this);
+            lawnmower.printStatus();
+            work();
+            if (isDone()) {
+                System.out.println("\n=== DONE. ===");
+                break;
+            }
+            Direction nextDirection = determineNextDirection();
+            if (nextDirection != null) {
+                move(nextDirection);
+            }
+        }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        return "";
+        for (int i = squares.length - 1; i >= 0; i--) {
+            for (int j = 0; j < squares[i].length; j++) {
+                if (squares[i][j] != currentSquare) {
+                    sb.append(squares[i][j]);
+                } else {
+                    sb.append(lawnmower);
+                }
+                sb.append("\t");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }
