@@ -19,7 +19,7 @@ public class Garden { // TODO: test
         this.width = width;
         this.height = height;
 
-        lawnmower = new Lawnmower(width, height);
+        lawnmower = new Lawnmower();
 
         squares = new Square[height][width];
         for (int i = 0; i < height; i++) {
@@ -37,9 +37,9 @@ public class Garden { // TODO: test
 //
 //    }
 
-    private void work() throws InterruptedException{
+    private void work() throws InterruptedException {
         if (currentSquare.getGrassState() == GrassState.UNCUT) {
-            long workTime = 200L * currentSquare.getGrassLength();
+            long workTime = 1000;
             lawnmower.mow(currentSquare);
             squaresDone++;
             Thread.sleep(workTime);
@@ -61,19 +61,23 @@ public class Garden { // TODO: test
         Direction nextDir = null;
 
         // up
-        if ( (currentY < height - 1) && (squares[currentY + 1][currentX].getGrassState().equals(GrassState.UNCUT)) ) {
+        if ( (currentY < height - 1)
+                && (squares[currentY + 1][currentX].getGrassState().equals(GrassState.UNCUT)) ) {
             nextDir = Direction.UP;
         }
         // down
-        else if ( (currentY > 0) && (squares[currentY - 1][currentX].getGrassState().equals(GrassState.UNCUT)) ) {
+        else if ( (currentY > 0)
+                && (squares[currentY - 1][currentX].getGrassState().equals(GrassState.UNCUT)) ) {
             nextDir = Direction.DOWN;
         }
         // right
-        else if ( (currentX < width - 1) && (squares[currentY][currentX + 1].getGrassState().equals(GrassState.UNCUT)) ) {
+        else if ( (currentX < width - 1)
+                && (squares[currentY][currentX + 1].getGrassState().equals(GrassState.UNCUT)) ) {
             nextDir = Direction.RIGHT;
         }
         // left
-        else if ( (currentX > 0) && (squares[currentY][currentX - 1].getGrassState().equals(GrassState.UNCUT)) ) {
+        else if ( (currentX > 0)
+                && (squares[currentY][currentX - 1].getGrassState().equals(GrassState.UNCUT)) ) {
             nextDir = Direction.LEFT;
         }
         return nextDir;
