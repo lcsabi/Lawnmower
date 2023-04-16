@@ -15,7 +15,7 @@ public class Lawnmower {
     private BladeState bladeState = BladeState.OFF;
 
     public Lawnmower() {
-        this(4.0, 2.0);
+        this(2.0, 1.0);
     }
 
     public Lawnmower(double mowConsumption, double moveConsumption) {
@@ -41,10 +41,6 @@ public class Lawnmower {
 
     public double getMowConsumption() {
         return mowConsumption;
-    }
-
-    public double getMoveConsumption() {
-        return moveConsumption;
     }
 
     public void printStatus() {
