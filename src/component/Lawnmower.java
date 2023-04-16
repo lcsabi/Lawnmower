@@ -60,13 +60,14 @@ public class Lawnmower {
             switchBlades();
         }
 
-        batteryCharge -= square.getGrassLength() * mowConsumption;
+        depleteBattery(square.getGrassLength() * mowConsumption);
 
         square.mowGrass();
         System.out.println("Cutting grass at " + getCurrentPos());
     }
 
     public void move(Direction d) {
+        depleteBattery(moveConsumption);
         currentPos.move(d);
     }
 
