@@ -37,31 +37,31 @@ public class Position {
 
     @Override
     public String toString() {
-        return "(" + y + "," + x + ")";
+        return "(" + x + "," + y + ")";
     }
 
     public void move(Direction d) {
         switch (d) {
             case UP -> {
                 y += 1;
-                System.out.println("Moving up.");
+                System.out.println("Moving up.\n");
             }
 
             case DOWN -> {
                 y -= 1;
-                System.out.println("Moving down.");
+                System.out.println("Moving down.\n");
             }
 
             case LEFT -> {
                 x -= 1;
-                System.out.println("Moving left.");
+                System.out.println("Moving left.\n");
             }
 
             case RIGHT -> {
                 x += 1;
-                System.out.println("Moving right.");
+                System.out.println("Moving right.\n");
             }
-        };
+        }
     }
 
     @Override
