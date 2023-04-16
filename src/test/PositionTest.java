@@ -24,6 +24,7 @@ class PositionTest {
         System.out.println("Coordinates before moving: " + p);
         p.move(Direction.RIGHT);
         assertEquals(new Position(0,1), p);
+        System.out.println("Coordinates after moving: " + p);
     }
 
     @Test
