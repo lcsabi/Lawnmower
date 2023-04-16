@@ -37,10 +37,12 @@ public class Garden { // TODO: test
 //
 //    }
 
-    private void work() {
+    private void work() throws InterruptedException{
         if (currentSquare.getGrassState() == GrassState.UNCUT) {
+            long workTime = 200L * currentSquare.getGrassLength();
             lawnmower.mow(currentSquare);
             squaresDone++;
+            Thread.sleep(workTime);
         }
     }
 
@@ -95,7 +97,11 @@ public class Garden { // TODO: test
         while (true) {
             System.out.println(this);
             lawnmower.printStatus();
-            work();
+            try {
+                work();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if (isDone()) {
                 System.out.println("\n=== DONE. ===");
                 break;
