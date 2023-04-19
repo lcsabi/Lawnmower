@@ -1,5 +1,3 @@
-package test;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +18,7 @@ class StackTest {
     @Test
     @DisplayName("Testing other constructor that specifies a top element.")
     void testCtor() {
-        stack = new Stack<>(new Stack.Node<Integer>(10));
+        stack = new Stack<>(new Stack.Node<>(10));
         assertEquals(10, stack.pop());
     }
 

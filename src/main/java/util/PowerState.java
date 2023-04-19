@@ -4,5 +4,5 @@ public enum PowerState {
 
     ON,
     OFF,
-    RECHARGING;
+    RECHARGING
 }
