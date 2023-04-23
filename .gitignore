@@ -41,3 +41,5 @@ dependency-reduced-pom.xml
 # Windows
 Thumbs.db
 ehthumbs.db
+
+src/main/resources/config.properties
