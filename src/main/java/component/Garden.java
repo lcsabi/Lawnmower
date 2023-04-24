@@ -1,9 +1,6 @@
 package component;
 
-import util.Direction;
-import util.GrassState;
-import util.Position;
-import util.Stack;
+import util.*;
 
 public class Garden { // TODO: test
 
@@ -14,6 +11,8 @@ public class Garden { // TODO: test
     private final Stack<Square> visited;
     private Square currentSquare;
     private int squaresDone = 0;
+    private final ApiHandler apiHandler;
+    private Weather weather;
 
     public Garden(int width, int height) {
         this.width = width;
@@ -31,11 +30,22 @@ public class Garden { // TODO: test
 
         visited = new Stack<>();
         currentSquare = squares[0][0];
+        apiHandler = new ApiHandler();
     }
 
 //    public boolean isFuelEnough() {
 //
 //    }
+
+    public void printWeatherInfo() {
+        weather = apiHandler.getWeatherInfo();
+        System.out.printf(
+                "Location: %s%nCondition: %s%nCloudy: %s%n",
+                weather.locationName(),
+                weather.currentCondition(),
+                weather.currentCloud() > 25 ? "Yes" : "No"
+        );
+    }
 
     private void work() throws InterruptedException {
         if (currentSquare.getGrassState() == GrassState.UNCUT) {

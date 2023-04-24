@@ -19,8 +19,8 @@ public class ConfigReader {
         }
     }
 
-    public String getAPILink() {
-        return properties.getProperty("api_link");
+    public String getEndpoint() {
+        return properties.getProperty("endpoint");
     }
 
     public String getAPIKey() {
@@ -29,9 +29,5 @@ public class ConfigReader {
 
     public String getCity() {
         return properties.getProperty("city");
-    }
-
-    public String getParameter() {
-        return properties.getProperty("parameter");
     }
 }
