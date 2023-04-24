@@ -59,7 +59,7 @@ public class ApiHandler {
 
             return weather;
         } catch (JsonSyntaxException | InterruptedException | URISyntaxException | IOException e) {
-            System.out.println("API error.");
+            System.out.println("Error when requesting weather information.");
             return null;
         }
     }
