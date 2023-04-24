@@ -49,7 +49,8 @@ public class ApiHandler {
             String currentConditionText = jsonObject
                     .getAsJsonObject("current")
                     .getAsJsonObject("condition")
-                    .get("text").getAsString();
+                    .get("text")
+                    .getAsString();
             int currentCloud = jsonObject
                     .getAsJsonObject("current")
                     .get("cloud")
