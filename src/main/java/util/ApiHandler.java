@@ -2,7 +2,6 @@ package util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 import java.net.URI;
@@ -25,43 +24,46 @@ public class ApiHandler {
         uri = endpoint + apiKey + city;
     }
 
-    public Weather getWeatherInfo() {
+    private HttpResponse<String> getApiResponse() throws
+            IOException,
+            InterruptedException,
+            URISyntaxException {
         HttpClient httpClient = HttpClient.newHttpClient();
-        try {
-            HttpRequest getRequest = HttpRequest.newBuilder()
-                    .uri(new URI(uri))
-                    .GET()
-                    .build();
+        HttpRequest getRequest = HttpRequest.newBuilder()
+                .uri(new URI(uri))
+                .GET()
+                .build();
 
-            HttpResponse<String> getResponse = httpClient.send(
-                    getRequest, BodyHandlers.ofString()
-            );
+        HttpResponse<String> getResponse = httpClient.send(
+                getRequest, BodyHandlers.ofString()
+        );
 
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.fromJson(
-                    getResponse.body(),
-                    JsonObject.class
-            );
-            String locationName = jsonObject
-                    .getAsJsonObject("location")
-                    .get("name")
-                    .getAsString();
-            String currentConditionText = jsonObject
-                    .getAsJsonObject("current")
-                    .getAsJsonObject("condition")
-                    .get("text")
-                    .getAsString();
-            int currentCloud = jsonObject
-                    .getAsJsonObject("current")
-                    .get("cloud")
-                    .getAsInt();
+        return getResponse;
+    }
 
-            Weather weather = new Weather(locationName, currentConditionText, currentCloud);
+    public Weather getWeatherInfo() throws IOException, URISyntaxException, InterruptedException {
+        HttpResponse<String> getResponse = getApiResponse();
 
-            return weather;
-        } catch (JsonSyntaxException | InterruptedException | URISyntaxException | IOException e) {
-            System.out.println("Error when requesting weather information.");
-            return null;
-        }
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(
+                getResponse.body(),
+                JsonObject.class
+        );
+        String locationName = jsonObject
+                .getAsJsonObject("location")
+                .get("name")
+                .getAsString();
+        String currentConditionText = jsonObject
+                .getAsJsonObject("current")
+                .getAsJsonObject("condition")
+                .get("text")
+                .getAsString();
+        int currentCloud = jsonObject
+                .getAsJsonObject("current")
+                .get("cloud")
+                .getAsInt();
+
+        Weather weather = new Weather(locationName, currentConditionText, currentCloud);
+        return weather;
     }
 }

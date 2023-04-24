@@ -1,6 +1,10 @@
 package component;
 
+import com.google.gson.JsonSyntaxException;
 import util.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Garden { // TODO: test
 
@@ -38,7 +42,11 @@ public class Garden { // TODO: test
 //    }
 
     public void printWeatherInfo() {
-        weather = apiHandler.getWeatherInfo();
+        try {
+            weather = apiHandler.getWeatherInfo();
+        } catch (JsonSyntaxException | InterruptedException | URISyntaxException | IOException e) {
+            System.out.println("Error when requesting weather information.");
+        }
         System.out.printf(
                 "Location: %s%nCondition: %s%nCloudy: %s%n",
                 weather.locationName(),
