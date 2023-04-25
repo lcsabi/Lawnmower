@@ -13,6 +13,7 @@ public class Lawnmower {
     private final double moveConsumption;
     private PowerState powerState = PowerState.OFF;
     private BladeState bladeState = BladeState.OFF;
+    private boolean isSolarPanelEnabled = false;
 
     public Lawnmower() {
         this(2.0, 1.0);
@@ -77,7 +78,11 @@ public class Lawnmower {
     }
 
     public void depleteBattery(double amount) {
-        batteryCharge -= amount;
+        double solarPanelCoefficient = 1;
+        if (isSolarPanelEnabled) {
+            solarPanelCoefficient = amount * 0.25;
+        }
+        batteryCharge -= amount - solarPanelCoefficient;
     }
 
     public void rechargeBattery() {
@@ -116,6 +121,10 @@ public class Lawnmower {
             bladeState = BladeState.OFF;
             System.out.println("Blades stopping.");
         }
+    }
+
+    public void enableSolarPanel() {
+        isSolarPanelEnabled = true;
     }
 
     @Override

@@ -120,6 +120,7 @@ public class Garden { // TODO: test
     }
 
     public void run() {
+        // 0. print weather info
         // 1. print garden status
         // 2. print lawnmower status
         // 3. determine if fuel is enough for next cut and returning
@@ -127,6 +128,13 @@ public class Garden { // TODO: test
         // 5. check if garden is done
         // 6. determine next direction
         // 7. move to next direction, set current square
+        printWeatherInfo();
+        if (weather.currentCloud() < 25) {
+            lawnmower.enableSolarPanel();
+            System.out.println("Solar panel is enabled.");
+        } else {
+            System.out.println("Solar panel is disabled.");
+        }
         while (true) {
             System.out.println(this);
             lawnmower.printStatus();
@@ -146,11 +154,10 @@ public class Garden { // TODO: test
                     directionStack.push(Direction.getOppositeDirection(nextDirection));
                 }
             } else {
-                // TODO: Recharging procedure
                 System.out.println("Not enough charge, heading back to charging station.");
-                guideBack();
+                guideBack(); // to charging station
                 lawnmower.rechargeBattery();
-                guideBack();
+                guideBack(); // to next square that needs to be worked on
             }
         }
     }
