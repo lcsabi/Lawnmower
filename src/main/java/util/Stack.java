@@ -55,7 +55,7 @@ public class Stack<T> {
         Node<T> temp = top;
         top = top.next;
         temp.next = null;
-
+        size--;
         return temp.value;
     }
 

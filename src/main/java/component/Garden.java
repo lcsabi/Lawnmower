@@ -12,7 +12,7 @@ public class Garden { // TODO: test
     private final int height; // y
     private final Lawnmower lawnmower;
     private final Square[][] squares;
-    private final Stack<Square> visited;
+    private Stack<Direction> directionStack;
     private Square currentSquare;
     private int squaresDone = 0;
     private final ApiHandler apiHandler;
@@ -32,7 +32,7 @@ public class Garden { // TODO: test
             }
         }
 
-        visited = new Stack<>();
+        directionStack = new Stack<>();
         currentSquare = squares[0][0];
         apiHandler = new ApiHandler();
     }
@@ -42,7 +42,7 @@ public class Garden { // TODO: test
         double mowConsumption = lawnmower.getMowConsumption();
         double moveConsumption = lawnmower.getMoveConsumption();
         double totalFuelNeeded =
-                (visited.getSize() * moveConsumption) + (currentSquare.getGrassLength() * mowConsumption) + moveConsumption;
+                (directionStack.getSize() * moveConsumption) + (currentSquare.getGrassLength() * mowConsumption) + moveConsumption;
         double currentBatteryCharge = lawnmower.getBatteryCharge();
 
         System.out.println("Fuel needed: " + totalFuelNeeded); // DEBUG
@@ -109,11 +109,10 @@ public class Garden { // TODO: test
         return nextDir;
     }
 
-    private void move(Direction d) {
-        lawnmower.move(d);
+    private void move(Direction direction) {
+        lawnmower.move(direction);
         Position newPos = lawnmower.getCurrentPos();
         currentSquare = squares[newPos.getY()][newPos.getX()];
-        visited.push(currentSquare);
     }
 
     public void run() {
@@ -140,12 +139,27 @@ public class Garden { // TODO: test
                 Direction nextDirection = determineNextDirection();
                 if (nextDirection != null) {
                     move(nextDirection);
+                    directionStack.push(Direction.getOppositeDirection(nextDirection));
                 }
             } else {
+                // TODO: Recharging procedure
                 System.out.println("Not enough charge, heading back to charging station.");
-                return;
+                guideBack();
+                lawnmower.rechargeBattery();
+                guideBack();
             }
         }
+    }
+
+    private void guideBack() {
+        Stack<Direction> newStack = new Stack<>();
+        while (directionStack.getSize() != 0) {
+            Direction poppedDirection = directionStack.pop();
+            move(poppedDirection);
+            newStack.push(Direction.getOppositeDirection(poppedDirection));
+        }
+        directionStack = newStack;
+        System.out.println(this);
     }
 
     @Override
