@@ -76,6 +76,24 @@ public class Lawnmower {
         batteryCharge -= amount;
     }
 
+    public void rechargeBattery() {
+        System.out.println("Recharging battery.");
+        powerState = PowerState.RECHARGING;
+        while (batteryCharge < 100) {
+            batteryCharge += 20;
+            if (batteryCharge > 100) {
+                batteryCharge = 100;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("Thread interrupted.");
+            }
+            System.out.println("Battery: " + batteryCharge + "%");
+        }
+        System.out.println("Battery recharged.");
+    }
+
     public void switchPower() {
         if (powerState == PowerState.OFF) {
             powerState = PowerState.ON;
