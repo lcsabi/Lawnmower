@@ -37,9 +37,17 @@ public class Garden { // TODO: test
         apiHandler = new ApiHandler();
     }
 
-//    public boolean isFuelEnough() {
-//
-//    }
+    public boolean isBatteryEnough() {
+        // returning to charging station + mowing current square + moving to next square
+        double mowConsumption = lawnmower.getMowConsumption();
+        double moveConsumption = lawnmower.getMoveConsumption();
+        double totalFuelNeeded =
+                (visited.getSize() * moveConsumption) + (currentSquare.getGrassLength() * mowConsumption) + moveConsumption;
+        double currentBatteryCharge = lawnmower.getBatteryCharge();
+
+        System.out.println("Fuel needed: " + totalFuelNeeded); // DEBUG
+        return currentBatteryCharge >= totalFuelNeeded;
+    }
 
     public void printWeatherInfo() {
         try {
@@ -119,18 +127,23 @@ public class Garden { // TODO: test
         while (true) {
             System.out.println(this);
             lawnmower.printStatus();
-            try {
-                work();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if (isDone()) {
-                System.out.println("\n=== DONE. ===");
-                break;
-            }
-            Direction nextDirection = determineNextDirection();
-            if (nextDirection != null) {
-                move(nextDirection);
+            if (isBatteryEnough()) {
+                try {
+                    work();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (isDone()) {
+                    System.out.println("\n=== DONE. ===");
+                    break;
+                }
+                Direction nextDirection = determineNextDirection();
+                if (nextDirection != null) {
+                    move(nextDirection);
+                }
+            } else {
+                System.out.println("Not enough charge, heading back to charging station.");
+                return;
             }
         }
     }

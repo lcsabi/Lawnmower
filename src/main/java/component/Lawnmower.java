@@ -44,6 +44,10 @@ public class Lawnmower {
         return mowConsumption;
     }
 
+    public double getMoveConsumption() {
+        return moveConsumption;
+    }
+
     public void printStatus() {
         System.out.println(
                 "Position: " + getCurrentPos()
