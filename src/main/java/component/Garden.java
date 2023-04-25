@@ -56,10 +56,11 @@ public class Garden { // TODO: test
             System.out.println("Error when requesting weather information.");
         }
         System.out.printf(
-                "Location: %s%nCondition: %s%nCloudy: %s%n",
+                "Location: %s%nTime: %s%nCondition: %s%nCloudy: %s%n",
                 weather.locationName(),
-                weather.currentCondition(),
-                weather.currentCloud() > 25 ? "Yes" : "No"
+                weather.isDay() ? "day" : "night",
+                weather.currentCondition().toLowerCase(),
+                weather.currentCloud() > 25 ? "yes" : "no"
         );
     }
 
@@ -129,11 +130,11 @@ public class Garden { // TODO: test
         // 6. determine next direction
         // 7. move to next direction, set current square
         printWeatherInfo();
-        if (weather.currentCloud() < 25) {
+        if (weather.currentCloud() < 25 && weather.isDay()) {
             lawnmower.enableSolarPanel();
-            System.out.println("Solar panel is enabled.");
+            System.out.println("Solar panel is enabled.\n");
         } else {
-            System.out.println("Solar panel is disabled.");
+            System.out.println("Solar panel is disabled.\n");
         }
         while (true) {
             System.out.println(this);

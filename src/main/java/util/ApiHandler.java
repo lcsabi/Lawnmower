@@ -62,8 +62,12 @@ public class ApiHandler {
                 .getAsJsonObject("current")
                 .get("cloud")
                 .getAsInt();
+        boolean isDay = jsonObject
+                .getAsJsonObject("current")
+                .get("is_day")
+                .getAsBoolean();
 
-        Weather weather = new Weather(locationName, currentConditionText, currentCloud);
+        Weather weather = new Weather(locationName, currentConditionText, currentCloud, isDay);
         return weather;
     }
 }
