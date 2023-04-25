@@ -68,7 +68,11 @@ public class Garden { // TODO: test
             long workTime = 1000;
             lawnmower.mow(currentSquare);
             squaresDone++;
-            Thread.sleep(workTime);
+            try {
+                Thread.sleep(workTime);
+            } catch (InterruptedException e) {
+                System.out.println("Thread interrupted in Garden.work().");
+            }
         }
     }
 

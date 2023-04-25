@@ -91,7 +91,7 @@ public class Lawnmower {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                System.out.println("Thread interrupted.");
+                System.out.println("Thread interrupted in Lawnmower.rechargeBattery().");
             }
             System.out.println("Battery: " + batteryCharge + "%");
         }
