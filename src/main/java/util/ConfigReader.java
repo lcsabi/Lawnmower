@@ -1,6 +1,5 @@
 package util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -8,11 +7,11 @@ import java.util.Properties;
 public class ConfigReader {
 
     private final Properties properties;
-    private final String configFileName = "src/main/resources/config.properties";
+    private final String configFileName = "config.properties";
 
     public ConfigReader() {
         properties = new Properties();
-        try (InputStream in = new FileInputStream(configFileName)) {
+        try (InputStream in = getClass().getClassLoader().getResourceAsStream(configFileName)) {
             properties.load(in);
         } catch (IOException e) {
             System.out.println("Configuration file not found.");
