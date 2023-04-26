@@ -1,4 +1,4 @@
-package util;
+package component;
 
 public record Weather(
         String locationName,
