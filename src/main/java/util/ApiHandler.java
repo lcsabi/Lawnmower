@@ -2,6 +2,7 @@ package util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import component.Weather;
 
 import java.io.IOException;
 import java.net.URI;
@@ -65,7 +66,7 @@ public class ApiHandler {
         boolean isDay = jsonObject
                 .getAsJsonObject("current")
                 .get("is_day")
-                .getAsBoolean();
+                .getAsInt() == 1;
 
         Weather weather = new Weather(locationName, currentConditionText, currentCloud, isDay);
         return weather;
