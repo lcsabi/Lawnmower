@@ -14,8 +14,8 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 public class ApiHandler {
 
-    ConfigReader configReader;
-    String uri;
+    final ConfigReader configReader;
+    final String uri;
 
     public ApiHandler() {
         configReader = new ConfigReader();
