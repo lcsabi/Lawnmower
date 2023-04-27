@@ -37,7 +37,7 @@ public class Garden { // TODO: test
         apiHandler = new ApiHandler();
     }
 
-    public boolean isBatteryEnough() {
+    private boolean isBatteryEnough() {
         // returning to charging station + mowing current square + moving to next square
         double mowConsumption = lawnmower.getMowConsumption();
         double moveConsumption = lawnmower.getMoveConsumption();
@@ -49,7 +49,7 @@ public class Garden { // TODO: test
         return currentBatteryCharge >= totalFuelNeeded;
     }
 
-    public void printWeatherInfo() {
+    private void printWeatherInfo() {
         try {
             weather = apiHandler.getWeatherInfo();
         } catch (JsonSyntaxException | InterruptedException | URISyntaxException | IOException e) {
@@ -64,7 +64,7 @@ public class Garden { // TODO: test
         );
     }
 
-    private void work() throws InterruptedException {
+    private void work() {
         if (currentSquare.getGrassState() == GrassState.UNCUT) {
             long workTime = 1000;
             lawnmower.mow(currentSquare);
@@ -140,11 +140,7 @@ public class Garden { // TODO: test
             System.out.println(this);
             lawnmower.printStatus();
             if (isBatteryEnough()) {
-                try {
-                    work();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                work();
                 if (isDone()) {
                     System.out.println("\n=== DONE. ===");
                     break;
